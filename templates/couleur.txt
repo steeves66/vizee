@@ -1,0 +1,2 @@
+primaire = #cc9966
+red = #cc3333   complemantaire #33cccc

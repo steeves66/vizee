@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-group">
+        <label for="{{form.password.id_for_label}}">Votre Mot de passe *</label>
+
+        {% if form.is_bound %}
+            {% if form.password.errors %}
+                <input type="password" class="form-control is-invalid" id="{{form.password.id_for_label}}" name="{{form.password.html_name}}" value="{{form.password.value}}" required>
+            {% else %}
+                <input type="password" class="form-control is-valid" id="{{form.password.id_for_label}}" name="{{form.password.html_name}}" value="{{form.password.value}}" required>
+            {% endif %}
+        {% else %}
+            <input type="password" class="form-control" id="{{form.password.id_for_label}}" name="{{form.password.html_name}}" required>
+        {% endif %}
+
+        {% if form.password.errors %}
+            <ul class="errorDetail">
+                {% for error in form.password.errors %}
+                    <li class=""> {{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div><!-- End .form-group -->
+</body>
+</html>
+
+<div class="form-group">
+    <label for="{{form.confirm_password.id_for_label}}">Votre Mot de passe *</label>
+
+    {% if form.is_bound %}
+        {% if form.confirm_password.errors %}
+            <input type="password" class="form-control is-invalid" id="{{form.confirm_password.id_for_label}}" name="{{form.confirm_password.html_name}}" value="{{form.confirm_password.value}}" required>
+        {% else %}
+            <input type="password" class="form-control is-valid" id="{{form.confirm_password.id_for_label}}" name="{{form.confirm_password.html_name}}" value="{{form.confirm_password.value}}" required>
+        {% endif %}
+    {% else %}
+        <input type="password" class="form-control" id="{{form.confirm_password.id_for_label}}" name="{{form.confirm_password.html_name}}" required>
+    {% endif %}
+
+    {% if form.confirm_password.errors %}
+        <ul class="errorDetail">
+            {% for error in form.confirm_password.errors %}
+                <li class=""> {{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div><!-- End .form-group -->

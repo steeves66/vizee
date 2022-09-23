@@ -1,0 +1,4 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqlite.sqlite3": "/usr/bin/sqlite3"
+}
