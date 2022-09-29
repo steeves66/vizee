@@ -73,9 +73,14 @@ class RegisterForm(forms.ModelForm):
     def clean(self):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
+        phone_numbers = self.cleaned_data.get('phone_numbers')
+        
         if password and len(password) < 8:
             self.add_error('password', 'Votre mot de passe doit avoir au moins 8 caractères')
+            
         if confirm_password and len(confirm_password) < 8:
             self.add_error('confirm_password', 'Votre mot de passe doit avoir au moins 8 caractères')
+            
         if(password != confirm_password):
             raise forms.ValidationError('Votre mot de passe et sa confirmation ne correspondent pas')
+            

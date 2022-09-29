@@ -613,42 +613,42 @@
                                         {% csrf_token %}
                                         <!-- Display form errors -->
                                         {% if form.errors %}
-                                        <div class="alert alert-custom alert-dismissible fade show" role="alert">
-                                            <ul>
-                                                <li class="error-title">Il y a des erreurs dans les champs suivants</li>
-                                                {% for k, v in form.errors.items %}
-                                                    {% if k == 'first_name' %}
-                                                        <li class="item-error">Nom</li>
-                                                    {% endif %}
-                                                    {% if k == 'last_name' %}
-                                                        <li class="item-error">Prenoms</li>
-                                                    {% endif %}
-                                                    {% if k == 'email' %}
-                                                        <li class="item-error">Email</li>
-                                                    {% endif %}
-                                                    {% if k == 'phone_numbers' %}
-                                                        <li class="item-error">Numero</li>
-                                                    {% endif %}
-                                                    {% if k == 'password' %}
-                                                        <li class="item-error">Mot de passe</li>
-                                                    {% endif %}
-                                                    {% if k == 'confirm_password' %}
-                                                        <li class="item-error">Confirmation de mot de passe</li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </ul>
-                                            {% if form.non_field_errors %}
+                                            <div class="alert alert-custom alert-dismissible fade show" role="alert">
                                                 <ul>
-                                                    <hr>
-                                                    {% for error in form.non_field_errors %}
-                                                        <li class="error-title">{{ error }}</li>
+                                                    <li class="error-title">Il y a des erreurs dans les champs suivants</li>
+                                                    {% for k, v in form.errors.items %}
+                                                        {% if k == 'first_name' %}
+                                                            <li class="item-error">Nom</li>
+                                                        {% endif %}
+                                                        {% if k == 'last_name' %}
+                                                            <li class="item-error">Prenoms</li>
+                                                        {% endif %}
+                                                        {% if k == 'email' %}
+                                                            <li class="item-error">Email</li>
+                                                        {% endif %}
+                                                        {% if k == 'phone_numbers' %}
+                                                            <li class="item-error">Numero</li>
+                                                        {% endif %}
+                                                        {% if k == 'password' %}
+                                                            <li class="item-error">Mot de passe</li>
+                                                        {% endif %}
+                                                        {% if k == 'confirm_password' %}
+                                                            <li class="item-error">Confirmation de mot de passe</li>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </ul>
-                                            {% endif %}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                        </div>
+                                                {% if form.non_field_errors %}
+                                                    <ul>
+                                                        <hr>
+                                                        {% for error in form.non_field_errors %}
+                                                            <li class="error-title">{{ error }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
                                         {% endif %}
 
                                             <div class="form-group">
@@ -674,7 +674,7 @@
                                             </div><!-- End .form-group -->
 
                                             <div class="form-group">
-                                                <label for="{{form.last_name.id_for_label}}">Votre prénom*</label>
+                                                <label for="{{form.last_name.id_for_label}}">Votre prénom *</label>
                                             
                                                 {% if form.is_bound %}
                                                     {% if form.last_name.errors %}
@@ -717,27 +717,56 @@
                                             {% endif %}
                                         </div><!-- End .form-group -->
 
-                                        <div class="form-group">
-                                            <label for="{{form.phone_numbers.id_for_label}}">Votre numero *</label>
-                                        
-                                            {% if form.is_bound %}
-                                                {% if form.email.errors %}
-                                                    <input type="text" class="form-control is-invalid" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" value="{{form.phone_numbers.value}}" required>
-                                                {% else %}
-                                                    <input type="text" class="form-control" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" value="{{form.phone_numbers.value}}" required>
+
+                                        <div id="number-composant">
+                                            <div class="form-group" id="input-field">
+                                                <label for="{{form.phone_numbers.id_for_label}}">Votre numero *</label>
+                                                <div>
+                                                    {% if form.is_bound %}
+                                                        {% if form.phone_numbers.errors %}
+                                                            <input type="text" class="form-control is-invalid" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" value="{{form.phone_numbers.value}}" required>
+                                                        {% else %}
+                                                            <input type="text" class="form-control" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" value="{{form.phone_numbers.value}}" required>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <input type="text" class="form-control" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" required>
+                                                    {% endif %}
+                                                </div>
+
+                                                {% if form.phone_numbers.errors %}
+                                                    <ul class="errorDetail">
+                                                        {% for error in form.phone_numbers.errors %}
+                                                            <li> {{ error }}</li>
+                                                        {% endfor %}
+                                                    </ul>
                                                 {% endif %}
-                                            {% else %}
-                                                <input type="text" class="form-control" id="{{form.phone_numbers.id_for_label}}" name="{{form.phone_numbers.html_name}}" required>
-                                            {% endif %}
-                                        
-                                            {% if form.phone_numbers.errors %}
-                                                <ul class="errorDetail">
-                                                    {% for error in form.phone_numbers.errors %}
-                                                        <li> {{ error }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            {% endif %}
+                                            </div>
+                                            
+                                            <div>
+                                                <button type="button" class="btn btn-outline-primary-2 mt-1 mb-1" id="add-in"><span>Cliquez pour ajouter un autre numero <span class="ml-2">&plus;</span></span></button>
+                                            </div>
                                         </div><!-- End .form-group -->
+                                        <script>
+                                            var i = 1
+                                            const MAX_LENGTH = 4
+                                            function remove(el){
+                                                document.getElementById('input-field').removeChild(el.parentNode.parentNode)
+                                                i--
+                                            }
+                                            function add(){
+                                                if(i<MAX_LENGTH){
+                                                    div = document.createElement('div')
+                                                    div.setAttribute('class', 'input-group mt-1')
+                                                    html = ""
+                                                    html += '<input type="text" class="form-control" placeholder="Un autre numero" name="{{form.phone_numbers.html_name}}">'
+                                                    html += '<div class="input-group-append"><button type="button" class="btn btn-outline-primary-2" onclick="remove(this)"><span>&times</span></button></div>'
+                                                    div.innerHTML = html
+                                                    document.getElementById('input-field').appendChild(div)
+                                                    i++
+                                                }
+                                            }
+                                            document.getElementById('add-in').addEventListener('click', add)
+                                        </script>
 
 							    		<div class="form-group">
 							    			<label for="{{form.password.id_for_label}}">Votre Mot de passe *</label>
@@ -1071,7 +1100,6 @@
     </div><!-- End .mobile-menu-container -->
 
 
-
     <!-- Plugins JS File -->
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
@@ -1081,6 +1109,30 @@
     <script src="{% static 'js/owl.carousel.min.js'%}"></script>
     <!-- Main JS File -->
     <script src="{% static 'js/main.js'%}"></script>
+
+    
+    <script>
+        var i = 1
+        const MAX_INPUT = 4
+        function rmEl(el){
+            document.getElementById('input-field').removeChild(el.parentNode)
+            i--
+            console.log(i)
+        }
+        function addEl(){
+            if(i<MAX_INPUT){
+                let div = document.createElement('div')
+                let input=''
+                input += '<input type="text" class="form-control" placeholder="Un autre numero" name="{{form.phone_numbers.html_name}}" id="number-1"><div class="input-group-append"><button type="button" class="btn btn-outline-primary-2"><span>&times</span></button></div>'
+                div.innerHTMTL = input
+                document.getElementById("input-field").appendChild(div)
+                i++
+            }
+            console.log(i)
+        }
+        var addInp = document.getElementById('add-el')
+        addInp.addEventListener('click', addEl)
+    </script>
 </body>
 
 
