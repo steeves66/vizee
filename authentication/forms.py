@@ -86,27 +86,15 @@ class LoginForm(forms.ModelForm):
         self.fields['email'].error_messages = {'required': ''}
         self.fields['password'].error_messages = {'required': ''}
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if email is None:
-            raise forms.ValidationError("Veuillez saisir un email")
-        return email
-      
-    def clean_password(self):
-        password = self.cleaned_data['password']
-        if password is None:
-            raise forms.ValidationError("Veuillez saisir un mot de passe")
-        return password
-    
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-            
-        user = Accounts.objects.filter(email=email).first()
-        if not user:
-            self.add_error('email', 'informations d\'identification invalides: email n\'existe pas')
-        else: 
-            if not user.check_password(password):
-                self.add_error('password', 'informations d\'identification invalides: mot de passe incorrect')
         
+        user = Accounts.objects.filter(email=email).first()
+        
+        if not user:
+            self.add_error('email', "Email invalide")  
+        else:
+            if not user.check_password(password):
+                self.add_error('password', "Mot de passe incorrect")
         

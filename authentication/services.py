@@ -7,12 +7,7 @@ def registerUser(cleaned_data):
     user.username = cleaned_data.get('username')
     user.phone_numbers = cleaned_data.get('phone_numbers')
     user.email = cleaned_data.get('email')
-    user.save(commit=False)
     password = cleaned_data.get('password')
     user.set_password(password)
+    user.save()
     return user
-
-def authenticateUser(cleaned_data):
-    user = Accounts()
-    email = cleaned_data.get('email')
-    password = cleaned_data.get('password')
