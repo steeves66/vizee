@@ -604,7 +604,7 @@
             			<div class="form-tab">
 	            			<ul class="nav nav-pills nav-fill" role="tablist">
 							    <li class="nav-item">
-							        <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
+							        <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Enregistrement</a>
 							    </li>
 							</ul>
 							<div class="tab-content">
@@ -651,36 +651,36 @@
                                             </div>
                                         {% endif %}
 
-                                            <div class="form-group">
-                                                <label for="{{form.first_name.id_for_label}}">Votre nom *</label>
-                                            
-                                                {% if form.is_bound %}
-                                                    {% if form.first_name.errors %}
-                                                        <input type="text" class="form-control is-invalid" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" value="{{form.first_name.value}}" required>
-                                                    {% else %}
-                                                        <input type="text" class="form-control" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" value="{{form.first_name.value}}" required>
-                                                    {% endif %}
-                                                {% else %}
-                                                    <input type="text" class="form-control" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" required>
-                                                {% endif %}
-                                            
+                                        <div class="form-group">
+                                            <label for="{{form.first_name.id_for_label}}">Nom *</label>
+                                        
+                                            {% if form.is_bound %}
                                                 {% if form.first_name.errors %}
-                                                    <ul class="errorDetail">
-                                                        {% for error in form.first_name.errors %}
-                                                            <li class=""> {{ error }}</li>
-                                                        {% endfor %}
-                                                    </ul>
+                                                    <input type="text" class="form-control is-invalid" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" value="{{form.first_name.value}}" required>
+                                                {% else %}
+                                                    <input type="text" class="form-control" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" value="{{form.first_name.value}}" required>
                                                 {% endif %}
-                                            </div><!-- End .form-group -->
-
+                                            {% else %}
+                                                <input type="text" class="form-control" id="{{form.first_name.id_for_label}}" name="{{form.first_name.html_name}}" required>
+                                            {% endif %}
+                                        
+                                            {% if form.first_name.errors %}
+                                                <ul class="errorDetail">
+                                                    {% for error in form.first_name.errors %}
+                                                        <li class=""> {{ error }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </div><!-- End .form-group -->
+                                        
                                             <div class="form-group">
-                                                <label for="{{form.last_name.id_for_label}}">Votre prénom *</label>
+                                                <label for="{{form.last_name.id_for_label}}">Prenoms *</label>
                                             
                                                 {% if form.is_bound %}
                                                     {% if form.last_name.errors %}
-                                                        <input type="text" class="form-control is-invalid" id="{{form.last_name.id_for_label}}" name="{{form.last_name.html_name}}" value="{{form.last_name.value}}" required>
+                                                        <input type="text" class="form-control is-invalid" id="{{form.last_name.id_for_label}}" name="{{form.last_name.html_name}}" value="{{form.first_name.value}}" required>
                                                     {% else %}
-                                                        <input type="text" class="form-control" id="{{form.last_name.id_for_label}}" name="{{form.last_name.html_name}}" value="{{form.last_name.value}}" required>
+                                                        <input type="text" class="form-control" id="{{form.last_name.id_for_label}}" name="{{form.last_name.html_name}}" value="{{form.first_name.value}}" required>
                                                     {% endif %}
                                                 {% else %}
                                                     <input type="text" class="form-control" id="{{form.last_name.id_for_label}}" name="{{form.last_name.html_name}}" required>
@@ -695,8 +695,30 @@
                                                 {% endif %}
                                             </div><!-- End .form-group -->
 
+                                            <div class="form-group">
+                                                <label for="{{form.username.id_for_label}}">Surnom </label>
+                                            
+                                                {% if form.is_bound %}
+                                                    {% if form.last_name.errors %}
+                                                        <input type="text" class="form-control is-invalid" id="{{form.username.id_for_label}}" name="{{form.username.html_name}}" value="{{form.last_name.value}}" required>
+                                                    {% else %}
+                                                        <input type="text" class="form-control" id="{{form.username.id_for_label}}" name="{{form.username.html_name}}" value="{{form.last_name.value}}" required>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <input type="text" class="form-control" id="{{form.username.id_for_label}}" name="{{form.username.html_name}}" required>
+                                                {% endif %}
+                                            
+                                                {% if form.username.errors %}
+                                                    <ul class="errorDetail">
+                                                        {% for error in form.username.errors %}
+                                                            <li class=""> {{ error }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </div><!-- End .form-group -->
+
 							    		<div class="form-group">
-                                            <label for="{{form.email.id_for_label}}">Votre email *</label>
+                                            <label for="{{form.email.id_for_label}}">Email *</label>
                                         
                                             {% if form.is_bound %}
                                                 {% if form.email.errors %}
@@ -720,7 +742,7 @@
 
                                         <div id="number-composant">
                                             <div class="form-group" id="input-field">
-                                                <label for="{{form.phone_numbers.id_for_label}}">Votre numero *</label>
+                                                <label for="{{form.phone_numbers.id_for_label}}">Numero *</label>
                                                 <div>
                                                     {% if form.is_bound %}
                                                         {% if form.phone_numbers.errors %}
@@ -742,11 +764,11 @@
                                                 {% endif %}
                                             </div>
                                             
-                                            <div>
+                                            <!-- <div>
                                                 <button type="button" class="btn btn-outline-primary-2 mt-1 mb-1" id="add-in"><span>Cliquez pour ajouter un autre numero <span class="ml-2">&plus;</span></span></button>
-                                            </div>
+                                            </div> -->
                                         </div><!-- End .form-group -->
-                                        <script>
+                                        <!-- <script>
                                             var i = 1
                                             const MAX_LENGTH = 4
                                             function remove(el){
@@ -766,10 +788,10 @@
                                                 }
                                             }
                                             document.getElementById('add-in').addEventListener('click', add)
-                                        </script>
+                                        </script> -->
 
 							    		<div class="form-group">
-							    			<label for="{{form.password.id_for_label}}">Votre Mot de passe *</label>
+							    			<label for="{{form.password.id_for_label}}">Mot de passe *</label>
 
                                             {% if form.is_bound %}
                                                 {% if form.password.errors %}
@@ -791,7 +813,7 @@
 							    		</div><!-- End .form-group -->
 
                                         <div class="form-group">
-                                            <label for="{{form.confirm_password.id_for_label}}">La confirmation de votre mot de passe *</label>
+                                            <label for="{{form.confirm_password.id_for_label}}">Confirmer votre mot de passe *</label>
                                         
                                             {% if form.is_bound %}
                                                 {% if form.confirm_password.errors %}
@@ -814,14 +836,14 @@
 
 							    		<div class="form-footer">
 							    			<button type="submit" class="btn btn-outline-primary-2">
-			                					<span>SIGN UP</span>
+			                					<span>S'ENREGISTRER</span>
 			            						<i class="icon-long-arrow-right"></i>
 			                				</button>
 
-			                				<div class="custom-control custom-checkbox">
+			                				{% comment %} <div class="custom-control custom-checkbox">
 												<input type="checkbox" class="custom-control-input" id="register-policy-2" required>
 												<label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
-											</div><!-- End .custom-checkbox -->
+											</div><!-- End .custom-checkbox --> {% endcomment %}
 							    		</div><!-- End .form-footer -->
 							    	</form>
 							    	<div class="form-choice">

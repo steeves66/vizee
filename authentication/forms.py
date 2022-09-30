@@ -1,4 +1,4 @@
-
+from django.contrib import messages, auth
 from django import forms
 from .models import Accounts
 import re
@@ -18,18 +18,7 @@ class RegisterForm(forms.ModelForm):
     
     class Meta:        
         model = Accounts
-        fields = ('first_name', 'last_name', 'email', 'phone_numbers', 'password')
-        labels = {
-            'first_name': 'nom',
-            'last_name': 'prénoms',
-            'email': 'email',
-            'phone_numbers': 'contacts',
-            'password': 'mot de passe',
-        }
-
-        widgets = {          
-        }
-        initials = {'phone_numbers': '+225'}
+        fields = ('first_name', 'last_name', 'username', 'email', 'phone_numbers', 'password')
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -57,6 +46,8 @@ class RegisterForm(forms.ModelForm):
         user_name = Accounts.objects.filter(username=username).exists()
         if user_name:
             raise forms.ValidationError('Ce surnom est utilisé, veuillez saisir un surnom non utilisé.')
+        if len(username) < 3:
+            raise forms.ValidationError('Votre surnom doir contenir au moins 3 caractères.')
         return username
     
     def clean_phone_numbers(self):
@@ -73,7 +64,6 @@ class RegisterForm(forms.ModelForm):
     def clean(self):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
-        phone_numbers = self.cleaned_data.get('phone_numbers')
         
         if password and len(password) < 8:
             self.add_error('password', 'Votre mot de passe doit avoir au moins 8 caractères')
@@ -83,4 +73,40 @@ class RegisterForm(forms.ModelForm):
             
         if(password != confirm_password):
             raise forms.ValidationError('Votre mot de passe et sa confirmation ne correspondent pas')
+
+
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = Accounts
+        fields = ('email', 'password')
+    
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['email'].error_messages = {'required': ''}
+        self.fields['password'].error_messages = {'required': ''}
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if email is None:
+            raise forms.ValidationError("Veuillez saisir un email")
+        return email
+      
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if password is None:
+            raise forms.ValidationError("Veuillez saisir un mot de passe")
+        return password
+    
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
             
+        user = Accounts.objects.filter(email=email).first()
+        if not user:
+            self.add_error('email', 'informations d\'identification invalides: email n\'existe pas')
+        else: 
+            if not user.check_password(password):
+                self.add_error('password', 'informations d\'identification invalides: mot de passe incorrect')
+        
+        
