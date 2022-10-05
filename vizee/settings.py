@@ -134,3 +134,26 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.Accounts'
+
+# Email sending settings 
+# gmail_send/settings.py
+
+# Gmail settings
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'klaurent66@gmail.com'  
+EMAIL_HOST_PASSWORD = 'hvwbitdzilsgxccm' #past the key or password app here
+
+DEFAULT_FROM_EMAIL = 'klaurent66@gmail.com'
+ # MailTrap mail settings
+""" EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = '9a869e196fe8d6'  
+EMAIL_HOST_PASSWORD = '5512bff374a484' #past the key or password app here """
+

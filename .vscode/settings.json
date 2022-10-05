@@ -1,4 +1,7 @@
 {
     "sqltools.useNodeRuntime": true,
-    "sqlite.sqlite3": "/usr/bin/sqlite3"
+    "sqlite.sqlite3": "/usr/bin/sqlite3",
+    "pythonAutoImport.pythonInterpreterPath": "/usr/bin/python",
+    "remote.WSL.debug": true,
+    "remote.WSL.fileWatcher.polling": true
 }

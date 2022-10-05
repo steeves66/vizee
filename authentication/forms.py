@@ -90,11 +90,46 @@ class LoginForm(forms.ModelForm):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
         
-        user = Accounts.objects.filter(email=email).first()
+        if not email and not password:
+            self.add_error('email', "L'email ne doit pas être vide")  
+            self.add_error('password', "Le mot de passe ne doit pas être vide")
+        if email and not password:
+            user = Accounts.objects.filter(email=email).first()
+            if not user:
+                self.add_error('email', "L'email est incorrect")  
+                self.add_error('password', "Le mot de passe ne doit pas être vide")
+            else:
+                self.add_error('password', "Le mot de passe ne doit pas être vide")
+        if email and password:
+            user = Accounts.objects.filter(email=email).first()
+            if not user:
+                self.add_error('email', "L'email est incorrect")
+            else: 
+                if not user.check_password(password):
+                    self.add_error('password', "Mot de passe incorrect")
+        if not email and password:
+            self.add_error('email', "L'email ne doit pas être vide")  
+            
+            
+            
+class ForgotPasswordForm(forms.Form):
+    class Meta:        
+        model = Accounts
+        fields = ('email')
         
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        
+        if email is None:
+            raise forms.ValidationError('Vous devez avoir un email, veuillez saisir un email')
+        
+        regex = '^[a-z0-9]+[\.-_]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        if not (re.fullmatch(regex, email)):
+            raise forms.ValidationError("Votre email n'a pas le bon format, veuillez saisir un email valide")
+        
+        user = Accounts.objects.filter(email= email).exists()
         if not user:
-            self.add_error('email', "Email invalide")  
-        else:
-            if not user.check_password(password):
-                self.add_error('password', "Mot de passe incorrect")
+            raise forms.ValidationError(" Cet email n'existe pas, veuillez saisir votre email' ")
+        return email
         
+    
